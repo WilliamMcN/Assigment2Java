@@ -30,7 +30,7 @@ public class MovieController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+       this.MovieStringLabel.setText("");
     }
 public void MovieCreateButtonPushed(){
      int YearRel = Integer.parseInt(YearReleasedTextFeild.getText());

@@ -29,9 +29,6 @@ public class Movie {
           
         // TODO code application logic here
     }
-    public Movie(){
-        
-    }
       
     void setMovieName(String MovieName) {
         if("".equals(MovieName)){
@@ -100,6 +97,7 @@ public class Movie {
     }
 
     public String getGenre() {
+        setGenre(this.genre);
         return genre.toLowerCase();
     }
 
