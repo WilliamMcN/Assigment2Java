@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="assigment1java.ViewPartyController">
+   <children>
+      <VBox alignment="TOP_RIGHT" layoutX="103.0" layoutY="95.0" prefHeight="356.0" prefWidth="80.0" spacing="20.0" AnchorPane.bottomAnchor="349.0" AnchorPane.leftAnchor="103.0" AnchorPane.rightAnchor="817.0" AnchorPane.topAnchor="95.0">
+         <children>
+            <Label text="User:" />
+            <Label text="Rank:" />
+            <Label text="Party Type:" />
+            <Label text="Address:" />
+            <Label text="City:" />
+            <Label text="Country:" />
+            <Label text="Time:" />
+            <Label text="Date:" />
+            <Label text="Message:" />
+         </children>
+      </VBox>
+      <TextArea editable="false" layoutX="114.0" layoutY="461.0" prefHeight="200.0" prefWidth="503.0" />
+      <ImageView fitHeight="280.0" fitWidth="273.0" layoutX="661.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true" />
+      <VBox layoutX="199.0" layoutY="95.0" prefHeight="356.0" prefWidth="214.0" spacing="20.0">
+         <children>
+            <Label text="User:" />
+            <Label text="Rank:" />
+            <Label text="Party Type:" />
+            <Label text="Address:" />
+            <Label text="City:" />
+            <Label text="Country:" />
+            <Label text="Time:" />
+            <Label text="Date:" />
+            <Label text="Message:" />
+         </children>
+      </VBox>
+      <Button layoutX="790.0" layoutY="561.0" mnemonicParsing="false" text="Back" />
+   </children>
+</AnchorPane>

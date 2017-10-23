@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="assigment1java.HomePagePartyFinderController">
+   <children>
+      <VBox alignment="TOP_CENTER" layoutX="56.0" layoutY="28.0" prefHeight="800.0" prefWidth="1000.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label text="Party Finder">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+            </Label>
+            <TableView fx:id="PartyTable" prefHeight="285.0" prefWidth="1000.0">
+              <columns>
+                <TableColumn fx:id="userColumn" prefWidth="95.0" text="User" />
+                <TableColumn fx:id="rankColumn" prefWidth="77.0" text="Rank" />
+                  <TableColumn fx:id="partyTypeColumn" prefWidth="97.0" text="Party Type " />
+                  <TableColumn fx:id="addressColumn" minWidth="0.0" prefWidth="145.0" text="Street" />
+                  <TableColumn fx:id="cityColumn" prefWidth="112.0" text="City" />
+                  <TableColumn fx:id="countryColumn" prefWidth="72.0" text="Country" />
+                  <TableColumn fx:id="timeColumn" prefWidth="121.0" text="Time " />
+                  <TableColumn fx:id="pobColumn" prefWidth="145.0" text="Date" />
+                  <TableColumn fx:id="entryColumn" prefWidth="115.0" text="Entry" />
+              </columns>
+            </TableView>
+            <HBox alignment="CENTER" prefHeight="71.0" prefWidth="980.0">
+               <children>
+                  <Label text="Total Entry Fee: " />
+                  <Label fx:id="totalLabel" text="Label" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#ViewPartyButtonPushed" text="View" />
+                  <Button mnemonicParsing="false" onAction="#testMath" text="Delete" />
+               </children>
+            </HBox>
+            <Button mnemonicParsing="false" onAction="#CreatePartyButtonPushed" text="Create Party" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>
