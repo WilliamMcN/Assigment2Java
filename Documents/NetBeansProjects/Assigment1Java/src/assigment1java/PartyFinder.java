@@ -198,6 +198,6 @@ public class PartyFinder {
         this.userImage = userImage;
     }
     
-    //Reason for no need to check is because all users will be given default inputs that they cant remove unless they selected a new input
+    //Reason for no need to check is because all users will be given default inputs that they can't remove unless they selected a new input
     
 }
