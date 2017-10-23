@@ -61,6 +61,8 @@ public class CreatePartyController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        //Creating the the rows for each dropdown 
         ChoiceBox ptcb = new ChoiceBox(FXCollections.observableArrayList(
     "Party", "Concert", "Kegger", "House Party", "Club", "Bar")
         );
@@ -82,11 +84,13 @@ public class CreatePartyController implements Initializable {
                 "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", 
                 "7pm", "8pm", "9pm", "10pm", "11pm")
         );
+        //Adding rows to the right dropdowns 
         partyTypeChoiceBox.setItems(ptcb.getItems());
         cityChoiceBox.setItems(citycb.getItems());
         countryChoiceBox.setItems(countrycb.getItems());
         toTimeChoiceBox.setItems(totcb.getItems());
         fromTimeChoiceBox.setItems(fromtcb.getItems());
+        //Selected the first item in the dropbox as default 
         this.partyTypeChoiceBox.getSelectionModel().selectFirst();
         this.cityChoiceBox.getSelectionModel().selectFirst();
         this.countryChoiceBox.getSelectionModel().selectFirst();
@@ -95,6 +99,7 @@ public class CreatePartyController implements Initializable {
 
         try
         {
+            //Creating a default image for the user 
             BufferedImage bufferedImage = ImageIO.read(new File("./src/Images/default.png"));
             Image image = SwingFXUtils.toFXImage(bufferedImage, null);
             partyImage.setImage(image);
@@ -107,15 +112,18 @@ public class CreatePartyController implements Initializable {
     }    
 
     void initialData(ObservableList<PartyFinder> items) {
+        //pulling the table from the main view to use here 
         partyFinder = items;
     }
         public void cancelButtonPushed(ActionEvent event) throws IOException
     {
+        //Reverts  back the the orginal page 
         changeScene(event, "HomePagePartyFinder.fxml");
     }
         
         public void createNewPartyButtonPushed(ActionEvent event) throws IOException
     {
+        //When button is pushed check try to add all of the items to the list
         try
         {
             PartyFinder newPar = new PartyFinder(userTextField.getText(),
@@ -134,11 +142,13 @@ public class CreatePartyController implements Initializable {
         }
         catch (IllegalArgumentException e)
         {
+            //if error appears throw the error message on the page 
             errorMsg.setText(e.getMessage());
         }
     }
 
     private void changeScene(ActionEvent event, String scene)throws IOException {
+        //this methid can be called any time to change to a certain page in the applilation 
          //load a new scene
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(scene));
@@ -160,6 +170,7 @@ public class CreatePartyController implements Initializable {
     }
      public void chooseImageButtonPushed(ActionEvent event)
     {
+        //Allows the user to pick their own image when this button is clicked 
         //get the stage to open a new window
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         
@@ -190,12 +201,14 @@ public class CreatePartyController implements Initializable {
         //ensure user selected file 
         if (imageFile.isFile()){
             try{
+                //Try to add the image to page 
                 BufferedImage bufferedImage = ImageIO.read(imageFile);
                 Image image = SwingFXUtils.toFXImage(bufferedImage, null);
                 partyImage.setImage(image);
             }
             catch (IOException e){
-                System.err.println(e.getMessage());
+                //if error happens, print to error to page 
+                errorMsg.setText(e.getMessage());
             }
         }
     }

@@ -65,18 +65,20 @@ public class HomePagePartyFinderController implements Initializable {
         entryColumn.setCellValueFactory(new PropertyValueFactory<PartyFinder, Double>("entry"));
        
         PartyTable.setItems(getParties());
+        //What this code will do is add all of the entry fees together at the start of the application 
         int i;
         double total = 0;
         for (i = 0; i < PartyTable.getItems().size(); i++) { 
              total += entryColumn.getCellData(i);
              
         }
+        //Changes the format to canadain currency 
         String moneyString = formatter.format(total);
         totalLabel.setText(String.valueOf(moneyString));
     }    
 
     private ObservableList<PartyFinder> getParties() {
-        
+        //dummy data for the tableview 
          ObservableList<PartyFinder> parties = FXCollections.observableArrayList();
         
         //add employees to the list
@@ -88,6 +90,7 @@ public class HomePagePartyFinderController implements Initializable {
         return parties;
     }
     public void testMath(){
+        //ignore this was to test the math 
         int i;
         double total = 0;
         for (i = 0; i < PartyTable.getItems().size(); i++) { 
@@ -97,6 +100,7 @@ public class HomePagePartyFinderController implements Initializable {
         
     }
     public void CreatePartyButtonPushed(ActionEvent event) throws IOException{
+        //when button is pushed change scene to create page.
    //load a new scene
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("CreateParty.fxml"));
@@ -118,6 +122,7 @@ public class HomePagePartyFinderController implements Initializable {
 }
         public void ViewPartyButtonPushed(ActionEvent event) throws IOException{
     //load a new scene
+    //Not yet used but this will change to view page when view button is pushed 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("ViewParty.fxml"));
         Parent parent = loader.load();
@@ -142,6 +147,8 @@ public class HomePagePartyFinderController implements Initializable {
 }
     public void loadParty(ObservableList<PartyFinder> newList)
     {
+        //When new data is loaded to the table it will reenter all of the entry fees to a new total 
+        
         this.PartyTable.setItems(newList);
         int i;
         double total = 0;

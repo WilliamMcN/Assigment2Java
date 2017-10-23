@@ -29,7 +29,7 @@ public class PartyFinder {
     private LocalDate pob;
     private Image userImage;
     private double entry;
-
+//Constuctors with image 
     public PartyFinder(String user, String rank, String partyType, String address, String city, String country, String time, LocalDate pob, Image userImage, double entry) {
         this.user = user;
         this.rank = rank;
@@ -42,6 +42,7 @@ public class PartyFinder {
         this.userImage = userImage;
         this.entry = entry;
     }
+    //Constuctors without image 
 
     public PartyFinder(String user, String rank, String partyType, String address, String city, String country, String time, LocalDate pob, double entry) {
         this.user = user;
@@ -70,6 +71,7 @@ public class PartyFinder {
     }
 
     public void setEntry(double entry) {
+        //Make sure dollar amount is greater then 0 
         if(entry < 0.00){
             throw new IllegalArgumentException("Entry cant be less then 0.00");
         }
@@ -81,6 +83,7 @@ public class PartyFinder {
     }
 
     public void setUser(String user) {
+        //Make sure user is filled 
         if(user == null || "".equals(user)){
             throw new IllegalArgumentException("Must have a user name");
         }
@@ -103,6 +106,7 @@ public class PartyFinder {
     }
 
     public void setPartyType(String partyType) {
+        //No need to check but make sure party type is filled 
         if(partyType != null || !"".equals(partyType)){
             
         }
@@ -117,6 +121,7 @@ public class PartyFinder {
     }
 
     public void setAddress(String address) {
+        //Make sure the address isnt blank 
          if(address != null || !"".equals(address)){
             
         }
@@ -131,6 +136,7 @@ public class PartyFinder {
     }
 
     public void setCity(String city) {
+        //No need to check but this is to make sure the city is inputted 
         if(city != null || !"".equals(city)){
             
         }
@@ -145,6 +151,7 @@ public class PartyFinder {
     }
 
     public void setCountry(String country) {
+         //No need to check but this is to make sure the country is inputted 
         if(country != null || !"".equals(country)){
             
         }
@@ -159,6 +166,7 @@ public class PartyFinder {
     }
 
     public void setTime(String time) {
+         //No need to check but this is to make sure the time is inputted 
         if(time != null || !"".equals(time)){
             
         }
@@ -173,6 +181,7 @@ public class PartyFinder {
     }
 
     public void setPob(LocalDate pob) {
+        //Make sure data is not in the past 
         if (pob.isAfter(LocalDate.now()) || (pob.isEqual(LocalDate.now()))){
             this.pob = pob;
         }
@@ -189,6 +198,6 @@ public class PartyFinder {
         this.userImage = userImage;
     }
     
-    
+    //Reason for no need to check is because all users will be given default inputs that they cant remove unless they selected a new input
     
 }
