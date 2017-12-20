@@ -191,4 +191,16 @@ public class ViewAllPartiesController implements Initializable {
         }
         
     }
+        public void ViewGraphButtonPushed(ActionEvent event) throws IOException{
+        //when button is pushed change scene to create page.
+   //load a new scene
+        SceneChanger sc = new SceneChanger();
+        sc.changeScenes(event, "ViewGraph.fxml", "ViewGraph");
+}
+            public void ViewAllEmployeesButtonPushed(ActionEvent event) throws IOException{
+        //when button is pushed change scene to create page.
+   //load a new scene
+        SceneChanger sc = new SceneChanger();
+        sc.changeScenes(event, "ViewAllUsers.fxml", "View All Users");
+}
 }

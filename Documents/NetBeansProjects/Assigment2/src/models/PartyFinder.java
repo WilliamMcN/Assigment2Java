@@ -39,11 +39,27 @@ public class PartyFinder {
     private double entry;
     
     //Login Account
+    /**
+     * User account login 
+     * @param userId
+     * @param admin 
+     */
+        public PartyFinder(int userId, boolean admin) {
+        this.userId = userId;
+        this.admin = admin;
+    }
         public PartyFinder(String password, int userId, boolean admin) {
         this.password = password;
         this.userId = userId;
         this.admin = admin;
     }
+        /**
+         * User login with salt 
+         * @param password
+         * @param userId
+         * @param salt
+         * @param admin 
+         */
     public PartyFinder(String password, int userId, byte[] salt, boolean admin) {
         this.password = password;
         this.userId = userId;
