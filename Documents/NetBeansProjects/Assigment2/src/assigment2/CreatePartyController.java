@@ -12,6 +12,7 @@ import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Blob;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -65,7 +66,7 @@ public class CreatePartyController implements Initializable {
     
     
     
-    LoginScreenController log = new LoginScreenController();
+    ViewAllPartiesController log = new ViewAllPartiesController();
 
     /**
      * Initializes the controller class.
@@ -176,24 +177,21 @@ public class CreatePartyController implements Initializable {
     }
      public void createButtonPushed(ActionEvent event) throws IOException, NoSuchAlgorithmException, SQLException
     {
-        //query the database with the volunteerID provided, get the salt
-        //and encrypted password stored in the database
         Connection conn = null;
         PreparedStatement ps = null;
-        ResultSet resultSet = null;
         
         
         
         try{
             //1.  connect to the DB
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/volunteer", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/PartyFinder?useSSL=false", "root", "");
             
             //2.  create a query string with ? used instead of the values given by the user
             String sql = "INSERT INTO party(userName,rank,partyType,address,city,country,pTime,pob,entry,userId,message)VALUES(?,?,?,?,?,?,?,?,?,?,?)";
             
             //3.  prepare the statement
             ps = conn.prepareStatement(sql);
-            
+             Date db = Date.valueOf(pob.getValue());
             //4.  bind the volunteerID to the ?
             ps.setString(1,userNameTextField.getText());
             ps.setString(2,"Newbie");
@@ -202,17 +200,17 @@ public class CreatePartyController implements Initializable {
             ps.setString(5,cityChoiceBox.getSelectionModel().getSelectedItem().toString());
             ps.setString(6,countryChoiceBox.getSelectionModel().getSelectedItem().toString());
             ps.setString(7,fromTimeChoiceBox.getSelectionModel().getSelectedItem().toString() + "To" + this.toTimeChoiceBox.getSelectionModel().getSelectedItem().toString());
-            ps.setDate(8, pob.getValue());
+            ps.setDate(8, db);
             ps.setInt(9, (int) entrySpinner.getValue());
-            ps.setInt(10,log.userCount);
+            ps.setInt(10,log.userIdLog);
             ps.setString(11,messageTextArea.getText());
             
             //5. execute the query
-            resultSet = ps.executeQuery();
+            ps.executeUpdate();
             
             
         }
-        catch (Exception e)
+        catch (SQLException e)
             {
                 System.err.println(e.getMessage());
             }
@@ -225,7 +223,7 @@ public class CreatePartyController implements Initializable {
                     conn.close();
             }
             SceneChanger sc = new SceneChanger();
-            sc.changeScenes(event, "ViewAllPartiesController.fxml", "ViewAllParties");
+            sc.changeScenes(event, "ViewAllPartiesController.fxml", "View All Parties");
         
     }
 }

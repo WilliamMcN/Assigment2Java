@@ -27,7 +27,7 @@
       <HBox alignment="CENTER" layoutX="203.0" layoutY="299.0" prefHeight="100.0" prefWidth="616.0" spacing="100.0">
          <children>
             <Button mnemonicParsing="false" onAction="#ViewPartyButtonPushed" prefWidth="61.0" text="View" />
-            <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="61.0" text="Edit" />
+            <Button mnemonicParsing="false" onAction="#EditPartyButtonPushed" prefHeight="31.0" prefWidth="61.0" text="Edit" />
             <Button mnemonicParsing="false" onAction="#CreatePartyButtonPushed" text="Create" />
          </children>
          <opaqueInsets>

@@ -42,7 +42,7 @@ public class SceneChanger {
     /**
      * This method will change scenes and preload the next scene with a Volunteer object
      */
-    public void changeScenes(ActionEvent event, String viewName, String title, PartyFinder volunteer, ControllerClass controllerClass) throws IOException  
+    public void changeScenes(ActionEvent event, String viewName, String title, PartyFinder party, ControllerClass controllerClass) throws IOException  
     {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(viewName));
@@ -52,7 +52,7 @@ public class SceneChanger {
         
         //access the controller class and preloaded the volunteer data
         controllerClass = loader.getController();
-        controllerClass.preloadData(volunteer);
+        controllerClass.preloadData(party);
         
         //get the stage from the event that was passed in
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
