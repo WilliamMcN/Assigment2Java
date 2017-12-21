@@ -124,7 +124,7 @@ public class CreatePartyController implements Initializable {
     }    
 
     void initialData(ObservableList<PartyFinder> items) {
-       System.out.print("Words");
+       System.out.print("Wordssa");
     }
     public void BackButtonPushed(ActionEvent event) throws IOException{
           SceneChanger sc = new SceneChanger();
