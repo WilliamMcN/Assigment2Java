@@ -12,10 +12,10 @@
    <children>
       <BarChart fx:id="barChart" layoutX="31.0" layoutY="72.0" prefHeight="293.0" prefWidth="467.0">
         <xAxis>
-          <CategoryAxis side="BOTTOM" />
+          <CategoryAxis fx:id="Parties" side="BOTTOM" />
         </xAxis>
         <yAxis>
-          <NumberAxis side="LEFT" />
+          <NumberAxis fx:id="Entry" side="LEFT" />
         </yAxis>
       </BarChart>
       <Button layoutX="521.0" layoutY="349.0" mnemonicParsing="false" onAction="#BackButtonPushed" text="Back" />

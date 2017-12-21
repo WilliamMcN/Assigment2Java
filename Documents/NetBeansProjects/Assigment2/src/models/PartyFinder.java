@@ -30,7 +30,7 @@ import javax.imageio.ImageIO;
  * @author Fir3AtWill
  */
 public class PartyFinder {
-    private String user,rank,partyType,address, city, country, time,password;
+    private String user,rank,partyType,address, city, country, time,password,message;
     private LocalDate pob;
     private Image userImage;
     private int userId,partyId;
@@ -67,7 +67,7 @@ public class PartyFinder {
         this.admin = admin;
     }
 
-    public PartyFinder(int partyId,int userId,String rank, String partyType, String address, String city, String country, String time, double entry) {
+    public PartyFinder(int partyId,int userId,String rank, String partyType, String address, String city, String country, String time, double entry,String message) {
         this.rank = rank;
         this.partyType = partyType;
         this.address = address;
@@ -77,6 +77,7 @@ public class PartyFinder {
         this.userId = userId;
         this.partyId = partyId;
         this.entry = entry;
+        this.message = message;
     }
 
 //Constuctors with image
@@ -271,6 +272,15 @@ public class PartyFinder {
     public String getTime() {
         return time;
     }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+    
 
     public void setTime(String time) {
          //No need to check but this is to make sure the time is inputted 

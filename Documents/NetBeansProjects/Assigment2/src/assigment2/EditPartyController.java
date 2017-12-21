@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,7 +31,7 @@ import models.PartyFinder;
  *
  * @author Fir3AtWill
  */
-public class EditPartyController implements Initializable {
+public class EditPartyController implements Initializable, ControllerClass {
     @FXML private TextField userNameTextField;
     @FXML private ChoiceBox partyTypeChoiceBox;
     @FXML private TextField streetTextField;
@@ -42,6 +43,8 @@ public class EditPartyController implements Initializable {
     @FXML private Spinner entrySpinner;
     @FXML private TextArea messageTextArea;
     @FXML private Label errorMsg;
+    
+    private PartyFinder party;
     /**
      * Initializes the controller class.
      */
@@ -78,64 +81,19 @@ public class EditPartyController implements Initializable {
         toTimeChoiceBox.setItems(totcb.getItems());
         fromTimeChoiceBox.setItems(fromtcb.getItems());
         
+    }  
+
+    @Override
+    public void preloadData(PartyFinder partyFinder) {
+        party = partyFinder;
+        
+        userNameTextField.setText(party.getUser());
+        partyTypeChoiceBox.setValue(party.getPartyType());
+        streetTextField.setText(party.getAddress());
+        cityChoiceBox.setValue(party.getCity());
+        countryChoiceBox.setValue(party.getCountry());
+        pob.setValue(party.getPob());
+        messageTextArea.setText(party.getMessage());
     }
- public void loadDbData() throws SQLException
-    {
-        //define an observable list
-        ObservableList<PartyFinder> partys = FXCollections.observableArrayList();
-        
-        //Read from the DB andd add employees to the list
-        //connect to the DB
-        Connection conn = null;  //connects to DB
-        Statement statement = null; //is the SQL statement we want to run
-        ResultSet resultSet = null; //is the response from the DB
-        
-        try{
-            //1. connect to the database
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/PartyFinder?useSSL=false", 
-                                                "root", "");
-            
-            //2.  create a statement
-            statement = conn.createStatement();
-            
-            
-            
-            //3.  create the sql query
-            resultSet = statement.executeQuery("SELECT * FROM Party Where PartyId = ?");
-            
-           
-            
-            //4.  create emplpoyee objects from each record
-            while (resultSet.next())
-            {
-                PartyFinder newParty = new PartyFinder(resultSet.getInt("partyId"), 
-                                                 resultSet.getInt("userId"),
-                                                 resultSet.getString("rank"),
-                                                 resultSet.getString("partyType"),
-                                                 resultSet.getString("address"),
-                                                 resultSet.getString("city"),
-                                                 resultSet.getString("country"),
-                                                 resultSet.getString("pTime"),
-                                                 resultSet.getDate("pob").toLocalDate(),
-                                                 resultSet.getDouble("entry"));
-                partys.add(newParty);
-            }
-            PartyTable.getItems().addAll(partys);
-        } 
-        catch (SQLException e)
-        {
-            System.err.println(e);
-        }
-        finally
-        {
-            if (conn != null)
-                conn.close();
-            if (statement != null)
-                statement.close();
-            if (resultSet != null)
-                resultSet.close();
-        }
-        
-    }    
     
 }

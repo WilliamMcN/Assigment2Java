@@ -75,9 +75,10 @@ public class ViewGraphController implements Initializable {
             statement = conn.createStatement();
             
             //3.  create a string with the sql statement
-            String sql = "SELECT YEAR(pob), PartyId, Entry " +
-                         "GROUP BY YEAR(pob), PartyId" +
-                         "ORDER BY YEAR(pob), Entry;";
+            String sql = "SELECT YEAR(pob), PartyId, Entry" +
+                         " From Party " +
+                         "GROUP BY YEAR(pob), PartyId " +
+                         "ORDER BY YEAR(pob), Entry";
             
             //4. execute the query
             resultSet = statement.executeQuery(sql);
@@ -86,7 +87,7 @@ public class ViewGraphController implements Initializable {
             while (resultSet.next())
             {
                 if (resultSet.getInt(1) == LocalDate.now().getYear())
-                    currentYearSeries.getData().add(new XYChart.Data(resultSet.getInt(2), resultSet.getInt(3)));
+                    currentYearSeries.getData().add(new XYChart.Data(resultSet.getString(2), resultSet.getDouble(3)));
             }       
         }
         catch (SQLException e)

@@ -43,7 +43,7 @@ public class ViewAllUsersController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         userIdColumn.setCellValueFactory(new PropertyValueFactory<PartyFinder, Integer>("userId"));
-        adminColumn.setCellValueFactory(new PropertyValueFactory<PartyFinder, Boolean>("entry"));
+        adminColumn.setCellValueFactory(new PropertyValueFactory<PartyFinder, Boolean>("admin"));
        
          //load dummy data
         try{
@@ -105,7 +105,7 @@ public class ViewAllUsersController implements Initializable {
       SceneChanger sc = new SceneChanger();
       sc.changeScenes(event, "ViewAllPartiesAdmin.fxml", "View All Parties");
   }
-  public void ChangeAdminButtonPushed() throws SQLException{
+  public void ChangeAdminButtonPushed(ActionEvent event) throws SQLException, IOException{
       if(adminColumn.getCellData(PartyTable.getSelectionModel().getSelectedIndex()) == true){
           System.out.print("True");
           Connection conn = null;
@@ -141,6 +141,8 @@ public class ViewAllUsersController implements Initializable {
                 if (conn != null)
                     conn.close();
             }
+            SceneChanger sc = new SceneChanger();
+            sc.changeScenes(event, "ViewAllUsers.fxml", "View All Users");
       }
       if(adminColumn.getCellData(PartyTable.getSelectionModel().getSelectedIndex()) == false)
       {
@@ -178,6 +180,8 @@ public class ViewAllUsersController implements Initializable {
                 if (conn != null)
                     conn.close();
             }
+            SceneChanger sc = new SceneChanger();
+            sc.changeScenes(event, "ViewAllUsers.fxml", "View All Users");
       }
       else 
       {

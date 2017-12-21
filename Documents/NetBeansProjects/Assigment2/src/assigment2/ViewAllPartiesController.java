@@ -52,6 +52,7 @@ public class ViewAllPartiesController implements Initializable {
     @FXML private Label totalLabel;
     @FXML private Label errmsgLabel;
     LoginScreenController log = new LoginScreenController();
+    public int userIdLog;
     private int currentUser;
     NumberFormat formatter = NumberFormat.getCurrencyInstance();
     BigDecimal test;
@@ -109,6 +110,8 @@ public class ViewAllPartiesController implements Initializable {
     public void CreatePartyButtonPushed(ActionEvent event) throws IOException{
         //when button is pushed change scene to create page.
    //load a new scene
+        userIdLog = currentUser;
+        System.out.print(userIdLog);
         SceneChanger sc = new SceneChanger();
         sc.changeScenes(event, "CreateParty.fxml", "Create");
 }
@@ -117,10 +120,22 @@ public class ViewAllPartiesController implements Initializable {
     //Not yet used but this will change to view page when view button is pushed 
         SceneChanger sc = new SceneChanger();
         sc.changeScenes(event, "ViewParty.fxml", "View");
+        PartyFinder party = this.PartyTable.getSelectionModel().getSelectedItem();
+        if (party == null)
+            return;
+        
+        EditPartyController epc = new EditPartyController();
+        sc.changeScenes(event, "EditPartyController.fxml", "Edit Party", party, epc);
 }
     public void EditPartyButtonPushed(ActionEvent event) throws IOException{
+        SceneChanger sc = new SceneChanger();
         if(currentUser == userIdColumn.getCellData(this.PartyTable.getSelectionModel().getSelectedIndex())){
-            System.out.print("Done");
+            PartyFinder party = this.PartyTable.getSelectionModel().getSelectedItem();
+        if (party == null)
+            return;
+        
+        EditPartyController epc = new EditPartyController();
+        sc.changeScenes(event, "EditPartyController.fxml", "Edit Party", party, epc);
         }
     }
     public void loadParty(ObservableList<PartyFinder> newList)

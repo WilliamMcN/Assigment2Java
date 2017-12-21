@@ -121,6 +121,7 @@ public class ViewAllPartiesControllerAdmin implements Initializable {
     public void EditPartyButtonPushed(ActionEvent event) throws IOException{
         if(currentUser == userIdColumn.getCellData(this.PartyTable.getSelectionModel().getSelectedIndex())){
             System.out.print("Done");
+            
         }
     }
     public void loadParty(ObservableList<PartyFinder> newList)
