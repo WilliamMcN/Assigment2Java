@@ -56,7 +56,9 @@ public class PartyFinder {
         this.admin = admin;
     }
 
-    public PartyFinder(String user, String rank, String partyType, String address, String city, String country, String time, String message, LocalDate pob, int userId, int partyId, double entry) {
+    public PartyFinder(int userId, int partyId,String user, String rank, String partyType, String address, String city, String country, String time, String message, LocalDate pob, double entry) {
+        this.userId = userId;
+        this.partyId = partyId;
         this.user = user;
         this.rank = rank;
         this.partyType = partyType;
@@ -66,8 +68,6 @@ public class PartyFinder {
         this.time = time;
         this.message = message;
         this.pob = pob;
-        this.userId = userId;
-        this.partyId = partyId;
         this.entry = entry;
     }
 
@@ -136,6 +136,10 @@ public class PartyFinder {
     }
 
     public PartyFinder(int aInt, int aInt0, String string, String string0, String string1, String string2, String string3, String string4, LocalDate toLocalDate, double aDouble, String string5, String string6) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public PartyFinder(int aInt, int aInt0, String string, String string0, String string1, String string2, String string3, String string4, String string5, LocalDate toLocalDate, String string6, double aDouble) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

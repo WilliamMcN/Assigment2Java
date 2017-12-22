@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="617.0" prefWidth="1021.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="assigment2.ViewAllPartiesController">
+<AnchorPane id="AnchorPane" prefHeight="617.0" prefWidth="998.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="assigment2.ViewAllPartiesController">
    <children>
-      <TableView fx:id="PartyTable" layoutY="-2.0" prefHeight="275.0" prefWidth="1021.0">
+      <TableView fx:id="PartyTable" layoutY="-2.0" prefHeight="275.0" prefWidth="1018.0">
         <columns>
           <TableColumn fx:id="partyIdColumn" prefWidth="75.0" text="PartyId" />
           <TableColumn fx:id="userIdColumn" prefWidth="75.0" text="UserId" />
@@ -40,5 +40,6 @@
       <Label layoutX="37.0" layoutY="350.0" text="UserId:" />
       <Label fx:id="UserIdLabel" layoutX="102.0" layoutY="350.0" />
       <Button layoutX="871.0" layoutY="486.0" mnemonicParsing="false" onAction="#ChangePasswordButtonPushed" text="Change Password" />
+      <Button layoutX="477.0" layoutY="411.0" mnemonicParsing="false" onAction="#GoingButtonPushed" text="Going" />
    </children>
 </AnchorPane>

@@ -42,7 +42,7 @@ public class ViewGraphController implements Initializable {
           currentYearSeries = new XYChart.Series<>();
         
         //barChart.setTitle("Hours Worked");
-        Parties.setLabel("Parties");
+        Parties.setLabel("Month");
         Entry.setLabel("Entry");
         
         currentYearSeries.setName(Integer.toString(LocalDate.now().getYear()));
@@ -75,10 +75,10 @@ public class ViewGraphController implements Initializable {
             statement = conn.createStatement();
             
             //3.  create a string with the sql statement
-            String sql = "SELECT YEAR(pob), PartyId, Entry" +
+            String sql = "SELECT YEAR(pob), Month(pob), SUM(Entry*Pop)" +
                          " From Party " +
-                         "GROUP BY YEAR(pob), PartyId " +
-                         "ORDER BY YEAR(pob), Entry";
+                         "GROUP BY Month(pob), (Entry*Pop) " +
+                         "ORDER BY Month(pob), (Entry*Pop)";
             
             //4. execute the query
             resultSet = statement.executeQuery(sql);

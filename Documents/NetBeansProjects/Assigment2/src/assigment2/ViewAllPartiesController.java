@@ -9,7 +9,9 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -229,4 +231,47 @@ public class ViewAllPartiesController implements Initializable {
          SceneChanger sc = new SceneChanger();
         sc.changeScenes(event, "ChangePassword.fxml", "Change Password");
     }
+     public void GoingButtonPushed(ActionEvent event) throws IOException, SQLException{
+        PartyFinder party = this.PartyTable.getSelectionModel().getSelectedItem();
+        if (party == null)
+            return;
+        else{
+                  Connection conn = null;
+                   PreparedStatement ps = null;
+            try{
+                //1.  connect to the DB
+                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/PartyFinder?useSSL=false", "root", "");
+
+                //2.  create a query string with ? used instead of the values given by the user
+                String sql = "Update Party set Pop = Pop + 1 where PartyId = ?;";
+
+                //3.  prepare the statement
+                ps = conn.prepareStatement(sql);
+                //4.  bind the volunteerID to the ?
+                ps.setInt(1,this.partyIdColumn.getCellData(this.PartyTable.getSelectionModel().getSelectedItem()));
+
+                //5. execute the query
+                ps.executeUpdate();
+
+
+            }
+            catch (SQLException e)
+                {
+                    System.err.println(e.getMessage());
+                }
+                finally
+                {
+                    if (ps != null)
+                        ps.close();
+
+                    if (conn != null)
+                        conn.close();
+                }
+                SceneChanger sc = new SceneChanger();
+                sc.changeScenes(event, "ViewAllParties.fxml", "View All Parties");
+
+            }
+    }
+        
 }
+
