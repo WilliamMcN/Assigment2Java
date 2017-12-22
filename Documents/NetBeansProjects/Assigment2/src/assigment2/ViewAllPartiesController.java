@@ -51,6 +51,7 @@ public class ViewAllPartiesController implements Initializable {
     @FXML private TableColumn<PartyFinder, Double> entryColumn;
     @FXML private Label totalLabel;
     @FXML private Label errmsgLabel;
+    @FXML private Label UserIdLabel;
     LoginScreenController log = new LoginScreenController();
     public int userIdLog;
     private int currentUser;
@@ -71,8 +72,8 @@ public class ViewAllPartiesController implements Initializable {
         countryColumn.setCellValueFactory(new PropertyValueFactory<PartyFinder, String>("country"));
         timeColumn.setCellValueFactory(new PropertyValueFactory<PartyFinder, String>("time"));
         pobColumn.setCellValueFactory(new PropertyValueFactory<PartyFinder, LocalDate>("pob"));
-        partyIdColumn.setCellValueFactory(new PropertyValueFactory<PartyFinder, Integer>("partyId"));
-        userIdColumn.setCellValueFactory(new PropertyValueFactory<PartyFinder, Integer>("userId"));
+        partyIdColumn.setCellValueFactory(new PropertyValueFactory<PartyFinder, Integer>("userId"));
+        userIdColumn.setCellValueFactory(new PropertyValueFactory<PartyFinder, Integer>("partyId"));
         entryColumn.setCellValueFactory(new PropertyValueFactory<PartyFinder, Double>("entry"));
        
          //load dummy data
@@ -89,10 +90,11 @@ public class ViewAllPartiesController implements Initializable {
         for (i = 0; i < PartyTable.getItems().size(); i++) { 
              total += entryColumn.getCellData(i);
              System.out.print(log.currentUserId);
-             currentUser = log.currentUserId;
              
         }
 //        Changes the format to canadain currency 
+        currentUser = log.currentUserId;
+        UserIdLabel.setText(String.valueOf(currentUser));
         String moneyString = formatter.format(total);
         totalLabel.setText(String.valueOf(moneyString));
         }    
@@ -119,23 +121,24 @@ public class ViewAllPartiesController implements Initializable {
     //load a new scene
     //Not yet used but this will change to view page when view button is pushed 
         SceneChanger sc = new SceneChanger();
-        sc.changeScenes(event, "ViewParty.fxml", "View");
         PartyFinder party = this.PartyTable.getSelectionModel().getSelectedItem();
         if (party == null)
             return;
         
-        EditPartyController epc = new EditPartyController();
-        sc.changeScenes(event, "EditPartyController.fxml", "Edit Party", party, epc);
+        ViewPartyController vpc = new ViewPartyController();
+        sc.changeScenes(event, "ViewParty.fxml", "View Party", party, vpc);
 }
     public void EditPartyButtonPushed(ActionEvent event) throws IOException{
         SceneChanger sc = new SceneChanger();
         if(currentUser == userIdColumn.getCellData(this.PartyTable.getSelectionModel().getSelectedIndex())){
             PartyFinder party = this.PartyTable.getSelectionModel().getSelectedItem();
-        if (party == null)
+        if (party == null){
+            errmsgLabel.setText("You dont have access to this party");
             return;
+        }
         
         EditPartyController epc = new EditPartyController();
-        sc.changeScenes(event, "EditPartyController.fxml", "Edit Party", party, epc);
+        sc.changeScenes(event, "EditParty.fxml", "Edit Party", party, epc);
         }
     }
     public void loadParty(ObservableList<PartyFinder> newList)
@@ -206,16 +209,24 @@ public class ViewAllPartiesController implements Initializable {
         }
         
     }
-        public void ViewGraphButtonPushed(ActionEvent event) throws IOException{
+    public void ViewGraphButtonPushed(ActionEvent event) throws IOException{
         //when button is pushed change scene to create page.
    //load a new scene
         SceneChanger sc = new SceneChanger();
         sc.changeScenes(event, "ViewGraph.fxml", "ViewGraph");
 }
-            public void ViewAllEmployeesButtonPushed(ActionEvent event) throws IOException{
+    public void ViewAllEmployeesButtonPushed(ActionEvent event) throws IOException{
         //when button is pushed change scene to create page.
    //load a new scene
         SceneChanger sc = new SceneChanger();
         sc.changeScenes(event, "ViewAllUsers.fxml", "View All Users");
 }
+    public void LogOutButtonPushed(ActionEvent event) throws IOException{
+         SceneChanger sc = new SceneChanger();
+        sc.changeScenes(event, "LoginScreen.fxml", "Login");
+    }
+     public void ChangePasswordButtonPushed(ActionEvent event) throws IOException{
+         SceneChanger sc = new SceneChanger();
+        sc.changeScenes(event, "ChangePassword.fxml", "Change Password");
+    }
 }

@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="AnchorPane" prefHeight="472.0" prefWidth="730.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="assigment2.EditPartyController">
+<AnchorPane id="AnchorPane" prefHeight="472.0" prefWidth="730.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="assigment2.EditPartyController">
     <children>
       <TextArea fx:id="messageTextArea" layoutX="89.0" layoutY="327.0" prefHeight="119.0" prefWidth="345.0" />
       <GridPane hgap="3.0" layoutX="24.0" layoutY="14.0" prefHeight="291.0" prefWidth="393.0" vgap="10.0">
@@ -44,14 +44,15 @@
             <ChoiceBox fx:id="cityChoiceBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <ChoiceBox fx:id="partyTypeChoiceBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="streetTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <ChoiceBox fx:id="fromTimeChoiceBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <ChoiceBox fx:id="toTimeChoiceBox" prefHeight="31.0" prefWidth="145.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
             <Label text="Time" GridPane.rowIndex="6" />
             <Label text="User Name" />
             <TextField fx:id="userNameTextField" GridPane.columnIndex="1" />
+            <TextField fx:id="TimeTextField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
          </children>
       </GridPane>
       <Label layoutX="14.0" layoutY="330.0" text="Message" />
       <Label fx:id="errorMsg" layoutX="244.0" layoutY="451.0" text="Label" />
+      <Button layoutX="552.0" layoutY="325.0" mnemonicParsing="false" onAction="#createButtonPushed" text="Change" />
+      <Button layoutX="562.0" layoutY="387.0" mnemonicParsing="false" onAction="#BackButtonPushed" text="Back" />
    </children>
 </AnchorPane>

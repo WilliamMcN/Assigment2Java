@@ -114,7 +114,7 @@ public class ViewAllUsersController implements Initializable {
             try
             {
                 //1. Connect to the database
-                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/partyfinder", "root", "");
+                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/partyfinder?useSSL=false", "root", "");
 
                 //2. Create a String that holds the query with ? as user inputs
                 String sql = "Update partyLogin Set admin = ? Where userId = ?";

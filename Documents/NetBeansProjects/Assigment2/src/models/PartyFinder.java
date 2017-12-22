@@ -15,17 +15,6 @@ import javafx.scene.image.Image;
 import javax.imageio.ImageIO;
 
 /**
- *  @FXML private TableView<Employee> PartyTable;
-    @FXML private TableColumn<Employee, String> userColumn;
-    @FXML private TableColumn<Employee, String> rankColumn;
-    @FXML private TableColumn<Employee, String> partyTypeColumn;
-    @FXML private TableColumn<Employee, String> addressColumn;
-    @FXML private TableColumn<Employee, String> cityColumn;
-    @FXML private TableColumn<Employee, String> countryColumn;
-    @FXML private TableColumn<Employee, String> timeColumn;
-    @FXML private TableColumn<Employee, LocalDate> dobColumn;
- */
-/**
  *
  * @author Fir3AtWill
  */
@@ -65,6 +54,21 @@ public class PartyFinder {
         this.userId = userId;
         this.salt = salt;
         this.admin = admin;
+    }
+
+    public PartyFinder(String user, String rank, String partyType, String address, String city, String country, String time, String message, LocalDate pob, int userId, int partyId, double entry) {
+        this.user = user;
+        this.rank = rank;
+        this.partyType = partyType;
+        this.address = address;
+        this.city = city;
+        this.country = country;
+        this.time = time;
+        this.message = message;
+        this.pob = pob;
+        this.userId = userId;
+        this.partyId = partyId;
+        this.entry = entry;
     }
 
     public PartyFinder(int partyId,int userId,String rank, String partyType, String address, String city, String country, String time, double entry,String message) {
@@ -131,6 +135,10 @@ public class PartyFinder {
         this.entry = entry;
     }
 
+    public PartyFinder(int aInt, int aInt0, String string, String string0, String string1, String string2, String string3, String string4, LocalDate toLocalDate, double aDouble, String string5, String string6) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 
     
 
@@ -177,7 +185,10 @@ public class PartyFinder {
     public void setUserId(int userId) {
         this.userId = userId;
     }
-
+/**
+ * Checks if entry is less then 0 if so throw error 
+ * @param entry 
+ */
     public void setEntry(double entry) {
         //Make sure dollar amount is greater then 0 
         if(entry < 0.00){
@@ -189,7 +200,10 @@ public class PartyFinder {
     public String getUser() {
         return user;
     }
-
+/**
+ * Check if user is empty if so throw error 
+ * @param user 
+ */
     public void setUser(String user) {
         //Make sure user is filled 
         if(user == null || "".equals(user)){
@@ -212,7 +226,10 @@ public class PartyFinder {
     public String getPartyType() {
         return partyType;
     }
-
+/**
+ * Check if party type is empty if so throw error 
+ * @param partyType 
+ */
     public void setPartyType(String partyType) {
         //No need to check but make sure party type is filled 
         if(partyType != null || !"".equals(partyType)){
@@ -242,7 +259,10 @@ public class PartyFinder {
     public String getCity() {
         return city;
     }
-
+/**
+ * Checks if city is empty if so throw error 
+ * @param city 
+ */
     public void setCity(String city) {
         //No need to check but this is to make sure the city is inputted 
         if(city != null || !"".equals(city)){

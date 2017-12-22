@@ -116,13 +116,21 @@ public class ViewAllPartiesControllerAdmin implements Initializable {
     //load a new scene
     //Not yet used but this will change to view page when view button is pushed 
         SceneChanger sc = new SceneChanger();
-        sc.changeScenes(event, "ViewParty.fxml", "View");
+        PartyFinder party = this.PartyTable.getSelectionModel().getSelectedItem();
+        if (party == null)
+            return;
+        
+        ViewPartyController vpc = new ViewPartyController();
+        sc.changeScenes(event, "ViewParty.fxml", "View Party", party, vpc);
 }
     public void EditPartyButtonPushed(ActionEvent event) throws IOException{
-        if(currentUser == userIdColumn.getCellData(this.PartyTable.getSelectionModel().getSelectedIndex())){
-            System.out.print("Done");
-            
-        }
+        SceneChanger sc = new SceneChanger();
+        PartyFinder party = this.PartyTable.getSelectionModel().getSelectedItem();
+        if (party == null)
+            return;
+        
+        EditPartyController epc = new EditPartyController();
+        sc.changeScenes(event, "EditParty.fxml", "Edit Party", party, epc);            
     }
     public void loadParty(ObservableList<PartyFinder> newList)
     {
@@ -191,5 +199,13 @@ public class ViewAllPartiesControllerAdmin implements Initializable {
                 resultSet.close();
         }
         
+    }
+     public void LogOutButtonPushed(ActionEvent event) throws IOException{
+         SceneChanger sc = new SceneChanger();
+        sc.changeScenes(event, "LoginScreen.fxml", "Login");
+    }
+    public void ChangePasswordButtonPushed(ActionEvent event) throws IOException{
+         SceneChanger sc = new SceneChanger();
+        sc.changeScenes(event, "ChangePassword.fxml", "Change Password");
     }
 }

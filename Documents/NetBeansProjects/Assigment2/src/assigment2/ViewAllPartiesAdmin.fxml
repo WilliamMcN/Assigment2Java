@@ -34,10 +34,14 @@
             <Insets />
          </opaqueInsets>
       </HBox>
-      <Button layoutX="903.0" layoutY="548.0" mnemonicParsing="false" text="Log Out" />
+      <Button layoutX="903.0" layoutY="548.0" mnemonicParsing="false" onAction="#LogOutButtonPushed" text="Log Out" />
       <Label fx:id="totalLabel" layoutX="960.0" layoutY="339.0" text="Label" />
       <Label fx:id="errmsgLabel" layoutX="494.0" layoutY="475.0" text="Label" />
       <Button layoutX="616.0" layoutY="414.0" mnemonicParsing="false" onAction="#ViewGraphButtonPushed" text="View Graph" />
       <Button layoutX="295.0" layoutY="414.0" mnemonicParsing="false" onAction="#ViewAllEmployeesButtonPushed" text="View Employees" />
+      <Label layoutX="37.0" layoutY="496.0" text="User: Admin" />
+      <Label layoutX="37.0" layoutY="527.0" text="UserId:" />
+      <Label fx:id="UserIdLabel" layoutX="92.0" layoutY="527.0" />
+      <Button layoutX="871.0" layoutY="491.0" mnemonicParsing="false" onAction="#ChangePasswordButtonPushed" text="Change Password" />
    </children>
 </AnchorPane>
