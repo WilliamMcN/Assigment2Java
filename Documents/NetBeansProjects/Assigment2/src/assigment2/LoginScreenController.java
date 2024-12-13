@@ -46,10 +46,11 @@ public class LoginScreenController implements Initializable {
         ResultSet resultSet = null;
         
         int userId = Integer.parseInt(userLoginTextField.getText());
+        userCount = userId;
         
         try{
             //1.  connect to the DB
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/PartyFinder", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/PartyFinder?useSSL=false", "root", "");
             
             //2.  create a query string with ? used instead of the values given by the user
             String sql = "SELECT * FROM PartyLogin WHERE userId = ?";

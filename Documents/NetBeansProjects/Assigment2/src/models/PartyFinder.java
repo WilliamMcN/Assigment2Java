@@ -15,22 +15,11 @@ import javafx.scene.image.Image;
 import javax.imageio.ImageIO;
 
 /**
- *  @FXML private TableView<Employee> PartyTable;
-    @FXML private TableColumn<Employee, String> userColumn;
-    @FXML private TableColumn<Employee, String> rankColumn;
-    @FXML private TableColumn<Employee, String> partyTypeColumn;
-    @FXML private TableColumn<Employee, String> addressColumn;
-    @FXML private TableColumn<Employee, String> cityColumn;
-    @FXML private TableColumn<Employee, String> countryColumn;
-    @FXML private TableColumn<Employee, String> timeColumn;
-    @FXML private TableColumn<Employee, LocalDate> dobColumn;
- */
-/**
  *
  * @author Fir3AtWill
  */
 public class PartyFinder {
-    private String user,rank,partyType,address, city, country, time,password;
+    private String user,rank,partyType,address, city, country, time,password,message;
     private LocalDate pob;
     private Image userImage;
     private int userId,partyId;
@@ -39,11 +28,27 @@ public class PartyFinder {
     private double entry;
     
     //Login Account
+    /**
+     * User account login 
+     * @param userId
+     * @param admin 
+     */
+        public PartyFinder(int userId, boolean admin) {
+        this.userId = userId;
+        this.admin = admin;
+    }
         public PartyFinder(String password, int userId, boolean admin) {
         this.password = password;
         this.userId = userId;
         this.admin = admin;
     }
+        /**
+         * User login with salt 
+         * @param password
+         * @param userId
+         * @param salt
+         * @param admin 
+         */
     public PartyFinder(String password, int userId, byte[] salt, boolean admin) {
         this.password = password;
         this.userId = userId;
@@ -51,7 +56,22 @@ public class PartyFinder {
         this.admin = admin;
     }
 
-    public PartyFinder(int partyId,int userId,String rank, String partyType, String address, String city, String country, String time, double entry) {
+    public PartyFinder(int userId, int partyId,String user, String rank, String partyType, String address, String city, String country, String time, String message, LocalDate pob, double entry) {
+        this.userId = userId;
+        this.partyId = partyId;
+        this.user = user;
+        this.rank = rank;
+        this.partyType = partyType;
+        this.address = address;
+        this.city = city;
+        this.country = country;
+        this.time = time;
+        this.message = message;
+        this.pob = pob;
+        this.entry = entry;
+    }
+
+    public PartyFinder(int partyId,int userId,String rank, String partyType, String address, String city, String country, String time, double entry,String message) {
         this.rank = rank;
         this.partyType = partyType;
         this.address = address;
@@ -61,6 +81,7 @@ public class PartyFinder {
         this.userId = userId;
         this.partyId = partyId;
         this.entry = entry;
+        this.message = message;
     }
 
 //Constuctors with image
@@ -114,6 +135,14 @@ public class PartyFinder {
         this.entry = entry;
     }
 
+    public PartyFinder(int aInt, int aInt0, String string, String string0, String string1, String string2, String string3, String string4, LocalDate toLocalDate, double aDouble, String string5, String string6) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public PartyFinder(int aInt, int aInt0, String string, String string0, String string1, String string2, String string3, String string4, String string5, LocalDate toLocalDate, String string6, double aDouble) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 
     
 
@@ -160,7 +189,10 @@ public class PartyFinder {
     public void setUserId(int userId) {
         this.userId = userId;
     }
-
+/**
+ * Checks if entry is less then 0 if so throw error 
+ * @param entry 
+ */
     public void setEntry(double entry) {
         //Make sure dollar amount is greater then 0 
         if(entry < 0.00){
@@ -172,7 +204,10 @@ public class PartyFinder {
     public String getUser() {
         return user;
     }
-
+/**
+ * Check if user is empty if so throw error 
+ * @param user 
+ */
     public void setUser(String user) {
         //Make sure user is filled 
         if(user == null || "".equals(user)){
@@ -195,7 +230,10 @@ public class PartyFinder {
     public String getPartyType() {
         return partyType;
     }
-
+/**
+ * Check if party type is empty if so throw error 
+ * @param partyType 
+ */
     public void setPartyType(String partyType) {
         //No need to check but make sure party type is filled 
         if(partyType != null || !"".equals(partyType)){
@@ -225,7 +263,10 @@ public class PartyFinder {
     public String getCity() {
         return city;
     }
-
+/**
+ * Checks if city is empty if so throw error 
+ * @param city 
+ */
     public void setCity(String city) {
         //No need to check but this is to make sure the city is inputted 
         if(city != null || !"".equals(city)){
@@ -255,6 +296,15 @@ public class PartyFinder {
     public String getTime() {
         return time;
     }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+    
 
     public void setTime(String time) {
          //No need to check but this is to make sure the time is inputted 

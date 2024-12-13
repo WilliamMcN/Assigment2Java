@@ -9,7 +9,9 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -51,7 +53,9 @@ public class ViewAllPartiesController implements Initializable {
     @FXML private TableColumn<PartyFinder, Double> entryColumn;
     @FXML private Label totalLabel;
     @FXML private Label errmsgLabel;
+    @FXML private Label UserIdLabel;
     LoginScreenController log = new LoginScreenController();
+    public int userIdLog;
     private int currentUser;
     NumberFormat formatter = NumberFormat.getCurrencyInstance();
     BigDecimal test;
@@ -70,8 +74,8 @@ public class ViewAllPartiesController implements Initializable {
         countryColumn.setCellValueFactory(new PropertyValueFactory<PartyFinder, String>("country"));
         timeColumn.setCellValueFactory(new PropertyValueFactory<PartyFinder, String>("time"));
         pobColumn.setCellValueFactory(new PropertyValueFactory<PartyFinder, LocalDate>("pob"));
-        partyIdColumn.setCellValueFactory(new PropertyValueFactory<PartyFinder, Integer>("partyId"));
-        userIdColumn.setCellValueFactory(new PropertyValueFactory<PartyFinder, Integer>("userId"));
+        partyIdColumn.setCellValueFactory(new PropertyValueFactory<PartyFinder, Integer>("userId"));
+        userIdColumn.setCellValueFactory(new PropertyValueFactory<PartyFinder, Integer>("partyId"));
         entryColumn.setCellValueFactory(new PropertyValueFactory<PartyFinder, Double>("entry"));
        
          //load dummy data
@@ -88,10 +92,11 @@ public class ViewAllPartiesController implements Initializable {
         for (i = 0; i < PartyTable.getItems().size(); i++) { 
              total += entryColumn.getCellData(i);
              System.out.print(log.currentUserId);
-             currentUser = log.currentUserId;
              
         }
 //        Changes the format to canadain currency 
+        currentUser = log.currentUserId;
+        UserIdLabel.setText(String.valueOf(currentUser));
         String moneyString = formatter.format(total);
         totalLabel.setText(String.valueOf(moneyString));
         }    
@@ -109,6 +114,8 @@ public class ViewAllPartiesController implements Initializable {
     public void CreatePartyButtonPushed(ActionEvent event) throws IOException{
         //when button is pushed change scene to create page.
    //load a new scene
+        userIdLog = currentUser;
+        System.out.print(userIdLog);
         SceneChanger sc = new SceneChanger();
         sc.changeScenes(event, "CreateParty.fxml", "Create");
 }
@@ -116,11 +123,24 @@ public class ViewAllPartiesController implements Initializable {
     //load a new scene
     //Not yet used but this will change to view page when view button is pushed 
         SceneChanger sc = new SceneChanger();
-        sc.changeScenes(event, "ViewParty.fxml", "View");
+        PartyFinder party = this.PartyTable.getSelectionModel().getSelectedItem();
+        if (party == null)
+            return;
+        
+        ViewPartyController vpc = new ViewPartyController();
+        sc.changeScenes(event, "ViewParty.fxml", "View Party", party, vpc);
 }
     public void EditPartyButtonPushed(ActionEvent event) throws IOException{
+        SceneChanger sc = new SceneChanger();
         if(currentUser == userIdColumn.getCellData(this.PartyTable.getSelectionModel().getSelectedIndex())){
-            System.out.print("Done");
+            PartyFinder party = this.PartyTable.getSelectionModel().getSelectedItem();
+        if (party == null){
+            errmsgLabel.setText("You dont have access to this party");
+            return;
+        }
+        
+        EditPartyController epc = new EditPartyController();
+        sc.changeScenes(event, "EditParty.fxml", "Edit Party", party, epc);
         }
     }
     public void loadParty(ObservableList<PartyFinder> newList)
@@ -191,4 +211,67 @@ public class ViewAllPartiesController implements Initializable {
         }
         
     }
+    public void ViewGraphButtonPushed(ActionEvent event) throws IOException{
+        //when button is pushed change scene to create page.
+   //load a new scene
+        SceneChanger sc = new SceneChanger();
+        sc.changeScenes(event, "ViewGraph.fxml", "ViewGraph");
 }
+    public void ViewAllEmployeesButtonPushed(ActionEvent event) throws IOException{
+        //when button is pushed change scene to create page.
+   //load a new scene
+        SceneChanger sc = new SceneChanger();
+        sc.changeScenes(event, "ViewAllUsers.fxml", "View All Users");
+}
+    public void LogOutButtonPushed(ActionEvent event) throws IOException{
+         SceneChanger sc = new SceneChanger();
+        sc.changeScenes(event, "LoginScreen.fxml", "Login");
+    }
+     public void ChangePasswordButtonPushed(ActionEvent event) throws IOException{
+         SceneChanger sc = new SceneChanger();
+        sc.changeScenes(event, "ChangePassword.fxml", "Change Password");
+    }
+     public void GoingButtonPushed(ActionEvent event) throws IOException, SQLException{
+        PartyFinder party = this.PartyTable.getSelectionModel().getSelectedItem();
+        if (party == null)
+            return;
+        else{
+                  Connection conn = null;
+                   PreparedStatement ps = null;
+            try{
+                //1.  connect to the DB
+                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/PartyFinder?useSSL=false", "root", "");
+
+                //2.  create a query string with ? used instead of the values given by the user
+                String sql = "Update Party set Pop = Pop + 1 where PartyId = ?;";
+
+                //3.  prepare the statement
+                ps = conn.prepareStatement(sql);
+                //4.  bind the volunteerID to the ?
+                ps.setInt(1,this.partyIdColumn.getCellData(this.PartyTable.getSelectionModel().getSelectedItem()));
+
+                //5. execute the query
+                ps.executeUpdate();
+
+
+            }
+            catch (SQLException e)
+                {
+                    System.err.println(e.getMessage());
+                }
+                finally
+                {
+                    if (ps != null)
+                        ps.close();
+
+                    if (conn != null)
+                        conn.close();
+                }
+                SceneChanger sc = new SceneChanger();
+                sc.changeScenes(event, "ViewAllParties.fxml", "View All Parties");
+
+            }
+    }
+        
+}
+

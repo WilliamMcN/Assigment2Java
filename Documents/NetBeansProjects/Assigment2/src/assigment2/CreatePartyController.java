@@ -12,6 +12,7 @@ import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Blob;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -64,8 +65,6 @@ public class CreatePartyController implements Initializable {
     private File imageFile;
     
     
-    
-    LoginScreenController log = new LoginScreenController();
 
     /**
      * Initializes the controller class.
@@ -123,7 +122,7 @@ public class CreatePartyController implements Initializable {
     }    
 
     void initialData(ObservableList<PartyFinder> items) {
-       System.out.print("Words");
+       System.out.print("Wordssa");
     }
     public void BackButtonPushed(ActionEvent event) throws IOException{
           SceneChanger sc = new SceneChanger();
@@ -176,56 +175,62 @@ public class CreatePartyController implements Initializable {
     }
      public void createButtonPushed(ActionEvent event) throws IOException, NoSuchAlgorithmException, SQLException
     {
-        //query the database with the volunteerID provided, get the salt
-        //and encrypted password stored in the database
-        Connection conn = null;
-        PreparedStatement ps = null;
-        ResultSet resultSet = null;
+        if(userNameTextField.getText().isEmpty())
+            errorMsg.setText("UserName is empty");
+        else if(streetTextField.getText().isEmpty())
+            errorMsg.setText("Address is empty");
+        else if(messageTextArea.getText().isEmpty())
+            errorMsg.setText("Message is empty");
+        else if(pob.getValue().isBefore(LocalDate.now()))
+            errorMsg.setText("Party can not be in the past");
         
         
-        
-        try{
-            //1.  connect to the DB
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/volunteer", "root", "");
-            
-            //2.  create a query string with ? used instead of the values given by the user
-            String sql = "INSERT INTO party(userName,rank,partyType,address,city,country,pTime,pob,entry,userId,message)VALUES(?,?,?,?,?,?,?,?,?,?,?)";
-            
-            //3.  prepare the statement
-            ps = conn.prepareStatement(sql);
-            
-            //4.  bind the volunteerID to the ?
-            ps.setString(1,userNameTextField.getText());
-            ps.setString(2,"Newbie");
-            ps.setString(3,partyTypeChoiceBox.getSelectionModel().getSelectedItem().toString());
-            ps.setString(4,streetTextField.getText());
-            ps.setString(5,cityChoiceBox.getSelectionModel().getSelectedItem().toString());
-            ps.setString(6,countryChoiceBox.getSelectionModel().getSelectedItem().toString());
-            ps.setString(7,fromTimeChoiceBox.getSelectionModel().getSelectedItem().toString() + "To" + this.toTimeChoiceBox.getSelectionModel().getSelectedItem().toString());
-            ps.setDate(8, pob.getValue());
-            ps.setInt(9, (int) entrySpinner.getValue());
-            ps.setInt(10,log.userCount);
-            ps.setString(11,messageTextArea.getText());
-            
-            //5. execute the query
-            resultSet = ps.executeQuery();
-            
-            
-        }
-        catch (Exception e)
-            {
-                System.err.println(e.getMessage());
-            }
-            finally
-            {
-                if (ps != null)
-                    ps.close();
+        else{
+                   Connection conn = null;
+                   PreparedStatement ps = null;
+            try{
+                //1.  connect to the DB
+                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/PartyFinder?useSSL=false", "root", "");
 
-                if (conn != null)
-                    conn.close();
+                //2.  create a query string with ? used instead of the values given by the user
+                String sql = "INSERT INTO party(userName,rank,partyType,address,city,country,pTime,pob,entry,userId,message)VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+
+                //3.  prepare the statement
+                ps = conn.prepareStatement(sql);
+                 Date db = Date.valueOf(pob.getValue());
+                //4.  bind the volunteerID to the ?
+                ps.setString(1,userNameTextField.getText());
+                ps.setString(2,"Newbie");
+                ps.setString(3,partyTypeChoiceBox.getSelectionModel().getSelectedItem().toString());
+                ps.setString(4,streetTextField.getText());
+                ps.setString(5,cityChoiceBox.getSelectionModel().getSelectedItem().toString());
+                ps.setString(6,countryChoiceBox.getSelectionModel().getSelectedItem().toString());
+                ps.setString(7,fromTimeChoiceBox.getSelectionModel().getSelectedItem().toString() + "To" + this.toTimeChoiceBox.getSelectionModel().getSelectedItem().toString());
+                ps.setDate(8, db);
+                ps.setInt(9, (int) entrySpinner.getValue());
+                ps.setInt(10,LoginScreenController.currentUserId);
+                ps.setString(11,messageTextArea.getText());
+
+                //5. execute the query
+                ps.executeUpdate();
+
+
             }
-            SceneChanger sc = new SceneChanger();
-            sc.changeScenes(event, "ViewAllPartiesController.fxml", "ViewAllParties");
-        
+            catch (SQLException e)
+                {
+                    System.err.println(e.getMessage());
+                }
+                finally
+                {
+                    if (ps != null)
+                        ps.close();
+
+                    if (conn != null)
+                        conn.close();
+                }
+                SceneChanger sc = new SceneChanger();
+                sc.changeScenes(event, "ViewAllParties.fxml", "View All Parties");
+
+            }
     }
 }

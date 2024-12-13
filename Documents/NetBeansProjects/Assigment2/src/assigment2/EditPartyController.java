@@ -36,7 +36,7 @@ import models.PartyFinder;
  *
  * @author Fir3AtWill
  */
-public class ViewPartyController implements Initializable, ControllerClass {
+public class EditPartyController implements Initializable, ControllerClass {
     @FXML private TextField TimeTextField;
     @FXML private TextField userNameTextField;
     @FXML private ChoiceBox partyTypeChoiceBox;
@@ -91,7 +91,7 @@ public class ViewPartyController implements Initializable, ControllerClass {
                 conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/PartyFinder?useSSL=false", "root", "");
 
                 //2.  create a query string with ? used instead of the values given by the user
-                String sql = "INSERT INTO party(userName,rank,partyType,address,city,country,pTime,pob,entry,userId,message)VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+                String sql = "Update party set userName = ? ,rank = ? ,partyType = ? ,address = ?,city = ?,country = ?,pTime = ?,pob = ?,entry = ?,userId = ?,message = ? where PartyId = ?";
 
                 //3.  prepare the statement
                 ps = conn.prepareStatement(sql);
@@ -108,6 +108,7 @@ public class ViewPartyController implements Initializable, ControllerClass {
                 ps.setInt(9, (int) entrySpinner.getValue());
                 ps.setInt(10,LoginScreenController.currentUserId);
                 ps.setString(11,messageTextArea.getText());
+                ps.setInt(12, party.getUserId());
 
                 //5. execute the query
                 ps.executeUpdate();
@@ -131,7 +132,7 @@ public class ViewPartyController implements Initializable, ControllerClass {
 
             }
     }
-          public void BackButtonPushed(ActionEvent event) throws IOException{
+      public void BackButtonPushed(ActionEvent event) throws IOException{
       SceneChanger sc = new SceneChanger();
       sc.changeScenes(event, "ViewAllParties.fxml", "View All Parties");
   }
